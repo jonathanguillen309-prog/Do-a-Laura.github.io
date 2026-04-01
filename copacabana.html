@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copacabana Restaurante · San Salvador</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #f5e6c8;
+    --coral: #e8603c;
+    --teal: #1a6b6b;
+    --deep: #0d2b2b;
+    --gold: #c9a84c;
+    --cream: #faf5ec;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--sand);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: linear-gradient(to bottom, rgba(13,43,43,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--sand);
+    font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0.85; transition: opacity 0.3s, color 0.3s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: var(--deep);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 80%, rgba(26,107,107,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, #0d2b2b 0%, #0f3a35 40%, #122e25 70%, #0d2b2b 100%);
+  }
+  /* Animated palm silhouettes */
+  .palm {
+    position: absolute; bottom: 0;
+    opacity: 0.18; pointer-events: none;
+  }
+  .palm-left { left: -40px; width: 320px; transform-origin: bottom center; animation: sway 6s ease-in-out infinite; }
+  .palm-right { right: -40px; width: 280px; transform-origin: bottom center; animation: sway 7s ease-in-out infinite reverse; }
+  @keyframes sway { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
+
+  .hero-content {
+    position: relative; text-align: center; padding: 2rem;
+    animation: fadeUp 1.2s ease both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+
+  .hero-tag {
+    font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    animation: fadeUp 1.2s 0.2s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 900; line-height: 0.9;
+    color: var(--white);
+    text-shadow: 0 4px 40px rgba(0,0,0,0.4);
+    animation: fadeUp 1.2s 0.3s ease both;
+  }
+  .hero-title span { color: var(--coral); font-style: italic; }
+  .hero-sub {
+    margin-top: 1.5rem; font-size: 1.2rem;
+    letter-spacing: 1px; color: var(--sand); opacity: 0.8;
+    animation: fadeUp 1.2s 0.5s ease both;
+  }
+  .hero-cta {
+    margin-top: 2.5rem; display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 1.2s 0.7s ease both;
+  }
+  .btn {
+    padding: 0.9rem 2.4rem; border: none; cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; transition: all 0.3s;
+  }
+  .btn-primary {
+    background: var(--coral); color: var(--white);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--sand);
+    border: 1px solid rgba(245,230,200,0.4);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+  .hero-scroll::after {
+    content: ''; display: block; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--sand), transparent);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 4rem;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--white); margin-bottom: 1.5rem;
+  }
+  .section-title em { color: var(--coral); font-style: italic; }
+  .section-text {
+    font-size: 1.15rem; line-height: 1.9;
+    color: var(--sand); opacity: 0.8; max-width: 520px;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: linear-gradient(135deg, #0f3530 0%, var(--deep) 100%);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .about-visual {
+    position: relative; height: 480px;
+  }
+  .about-card {
+    position: absolute; border-radius: 2px;
+    overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .about-card-main {
+    inset: 0; width: 85%; height: 85%; top: 0; left: 0;
+    background: linear-gradient(135deg, var(--teal) 0%, #0f4040 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8rem;
+  }
+  .about-card-accent {
+    width: 55%; height: 55%; bottom: 0; right: 0;
+    background: linear-gradient(135deg, var(--coral) 0%, #c0422a 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+  .about-badge {
+    position: absolute; top: 40%; left: 58%;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: var(--gold); color: var(--deep);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; line-height: 1; z-index: 2;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+  .about-badge small { font-family: 'Cormorant Garamond', serif; font-size: 0.55rem; letter-spacing: 2px; }
+  .about-stats {
+    display: flex; gap: 2rem; margin-top: 2.5rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem; color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+
+  /* ── MENU SHOWCASE ── */
+  .menu-section {
+    background: var(--deep);
+    text-align: center;
+  }
+  .menu-section .section-title { margin-bottom: 3.5rem; }
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .menu-card {
+    position: relative; overflow: hidden;
+    aspect-ratio: 4/5; cursor: pointer;
+    transition: transform 0.4s;
+  }
+  .menu-card:hover { transform: scale(1.02); z-index: 1; }
+  .menu-card-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    transition: transform 0.5s;
+  }
+  .menu-card:hover .menu-card-bg { transform: scale(1.1); }
+  .mc1 .menu-card-bg { background: linear-gradient(135deg, #1a5050 0%, #0d3535 100%); }
+  .mc2 .menu-card-bg { background: linear-gradient(135deg, #8b2500 0%, #c0422a 100%); }
+  .mc3 .menu-card-bg { background: linear-gradient(135deg, #2a4a2a 0%, #1a3520 100%); }
+  .mc4 .menu-card-bg { background: linear-gradient(135deg, #4a3500 0%, #7a5a00 100%); }
+  .mc5 .menu-card-bg { background: linear-gradient(135deg, #1a3a6b 0%, #102a55 100%); }
+  .mc6 .menu-card-bg { background: linear-gradient(135deg, #4a1a2a 0%, #6b2a3a 100%); }
+  .menu-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.5rem;
+    transform: translateY(20px); transition: transform 0.4s;
+  }
+  .menu-card:hover .menu-card-overlay { transform: translateY(0); }
+  .menu-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; color: var(--white); margin-bottom: 0.3rem;
+  }
+  .menu-card-desc { font-size: 0.85rem; color: var(--sand); opacity: 0.7; }
+  .menu-card-price { color: var(--gold); font-size: 1.1rem; margin-top: 0.4rem; }
+
+  .menu-cta { margin-top: 3rem; }
+
+  /* ── COCKTAILS STRIP ── */
+  .cocktails {
+    background: linear-gradient(90deg, var(--coral) 0%, #c0422a 100%);
+    padding: 3rem 4rem;
+    display: flex; align-items: center; gap: 3rem; overflow: hidden;
+  }
+  .cocktails-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; letter-spacing: 4px;
+    color: var(--white); white-space: nowrap; min-width: 200px;
+  }
+  .cocktails-list {
+    display: flex; gap: 2.5rem; flex-wrap: nowrap; overflow: hidden;
+  }
+  .cocktail-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    white-space: nowrap;
+  }
+  .cocktail-icon { font-size: 1.6rem; }
+  .cocktail-name { font-size: 1rem; color: rgba(255,255,255,0.9); letter-spacing: 1px; }
+
+  /* ── EXPERIENCE ── */
+  .experience {
+    background: linear-gradient(180deg, var(--deep) 0%, #0a2020 100%);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .exp-features { display: flex; flex-direction: column; gap: 2rem; }
+  .exp-feature {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.5rem; border-left: 2px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+    border-radius: 0 4px 4px 0;
+  }
+  .exp-feature:hover {
+    border-left-color: var(--coral);
+    background: rgba(232,96,60,0.05);
+  }
+  .exp-icon { font-size: 2rem; line-height: 1; margin-top: 0.2rem; }
+  .exp-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.4rem; }
+  .exp-desc { font-size: 0.95rem; color: var(--sand); opacity: 0.7; line-height: 1.7; }
+
+  /* ── INFO / CONTACT ── */
+  .info-section {
+    background: #07191a;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem;
+  }
+  .info-block h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem; letter-spacing: 3px; color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .info-line {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    margin-bottom: 1rem; font-size: 1rem; color: var(--sand); opacity: 0.8;
+    line-height: 1.6;
+  }
+  .info-icon { font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+  .info-link { color: var(--coral); text-decoration: none; }
+  .info-link:hover { color: var(--gold); }
+
+  .schedule-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.95rem; margin-bottom: 0.8rem;
+    color: var(--sand); opacity: 0.8; border-bottom: 1px solid rgba(245,230,200,0.08);
+    padding-bottom: 0.6rem;
+  }
+  .schedule-row span:last-child { color: var(--gold); }
+
+  .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+  .social-btn {
+    padding: 0.6rem 1.2rem;
+    background: rgba(245,230,200,0.08); color: var(--sand);
+    text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+    border: 1px solid rgba(245,230,200,0.15); transition: all 0.3s;
+  }
+  .social-btn:hover { background: var(--coral); border-color: var(--coral); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #040f10;
+    padding: 2.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 4px; color: var(--gold);
+  }
+  .footer-text { font-size: 0.8rem; opacity: 0.4; letter-spacing: 1px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about, .experience { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { height: 320px; order: -1; }
+    .menu-grid { grid-template-columns: 1fr 1fr; }
+    .info-section { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .cocktails { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .cocktails-list { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Copacabana</div>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Palm SVGs -->
+  <svg class="palm palm-left" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+    <path d="M150 600 Q145 400 140 300 Q120 200 80 150 Q140 180 148 280 Q130 180 90 100 Q148 150 150 260 Q140 150 110 80 Q155 140 155 250 Q160 140 140 60 Q162 130 160 240 Q170 130 160 50 Q170 120 165 230" stroke="#4a8a4a" stroke-width="3" fill="none"/>
+    <path d="M150 300 Q100 260 60 220 Q120 240 145 280" stroke="#5a9a5a" stroke-width="2" fill="none"/>
+    <path d="M148 280 Q180 230 210 200 Q175 240 150 270" stroke="#5a9a5a" stroke-width="2" fill="none"/>
+  </svg>
+
+  <svg class="palm palm-right" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
+    <path d="M150 600 Q155 400 158 300 Q178 200 218 150 Q158 180 152 280 Q168 180 208 100 Q152 150 150 260 Q158 150 188 80 Q145 140 143 250 Q138 140 158 60 Q136 130 138 240 Q128 130 138 50 Q128 120 133 230" stroke="#4a8a4a" stroke-width="3" fill="none"/>
+    <path d="M150 300 Q200 260 240 220 Q178 240 155 280" stroke="#5a9a5a" stroke-width="2" fill="none"/>
+    <path d="M152 280 Q120 230 90 200 Q125 240 150 270" stroke="#5a9a5a" stroke-width="2" fill="none"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-tag">🌴 Restaurante · San Salvador · El Salvador</p>
+    <h1 class="hero-title">Copa<span>cabana</span></h1>
+    <p class="hero-sub">Sabores del mar · Cócteles artesanales · Ambiente tropical</p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn btn-primary">Ver Menú</a>
+      <a href="tel:79898935" class="btn btn-outline">📞 Reservar Mesa</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="nosotros">
+  <div class="about-visual">
+    <div class="about-card about-card-main">🌴</div>
+    <div class="about-card about-card-accent">🍹</div>
+    <div class="about-badge">4.0<small>GOOGLE</small></div>
+  </div>
+  <div>
+    <span class="section-label">Nuestra Historia</span>
+    <h2 class="section-title">Donde el <em>sabor</em><br>se encuentra<br>con el paraíso</h2>
+    <p class="section-text">En Copacabana traemos el espíritu del Caribe al corazón de San Salvador. Un restaurante con ambiente tropical, cócteles artesanales y una cocina llena de sabor y frescura.</p>
+    <p class="section-text" style="margin-top:1rem;">Disponible también en <strong style="color:var(--coral)">Uber Eats</strong> para que disfrutes nuestra comida desde casa.</p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">4.0★</div>
+        <div class="stat-label">Google</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Reseñas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">969</div>
+        <div class="stat-label">Seguidores</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COCKTAILS STRIP -->
+<div class="cocktails">
+  <div class="cocktails-title">Cócteles</div>
+  <div class="cocktails-list">
+    <div class="cocktail-item"><span class="cocktail-icon">🍹</span><span class="cocktail-name">Piña Colada</span></div>
+    <div class="cocktail-item"><span class="cocktail-icon">🍸</span><span class="cocktail-name">Margarita</span></div>
+    <div class="cocktail-item"><span class="cocktail-icon">🥂</span><span class="cocktail-name">Mojito</span></div>
+    <div class="cocktail-item"><span class="cocktail-icon">🍊</span><span class="cocktail-name">Tropical Punch</span></div>
+    <div class="cocktail-item"><span class="cocktail-icon">🌺</span><span class="cocktail-name">Hibiscus Cooler</span></div>
+    <div class="cocktail-item"><span class="cocktail-icon">🍋</span><span class="cocktail-name">Limonada Especial</span></div>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <span class="section-label">Lo que ofrecemos</span>
+  <h2 class="section-title" style="margin-bottom:0.5rem;">Nuestro <em>Menú</em></h2>
+  <p style="color:var(--sand);opacity:0.6;margin-bottom:3rem;font-size:1.05rem;">Platillos frescos, sabores auténticos y cócteles únicos</p>
+
+  <div class="menu-grid">
+    <div class="menu-card mc1">
+      <div class="menu-card-bg">🦐</div>
+      <div class="menu-card-overlay">
+        <div class="menu-card-name">Camarones al Ajillo</div>
+        <div class="menu-card-desc">Jugosos camarones en salsa de mantequilla y ajo</div>
+      </div>
+    </div>
+    <div class="menu-card mc2">
+      <div class="menu-card-bg">🐟</div>
+      <div class="menu-card-overlay">
+        <div class="menu-card-name">Pescado Frito Entero</div>
+        <div class="menu-card-desc">Fresco y crujiente, servido con arroz y ensalada</div>
+      </div>
+    </div>
+    <div class="menu-card mc3">
+      <div class="menu-card-bg">🥗</div>
+      <div class="menu-card-overlay">
+        <div class="menu-card-name">Ensalada Tropical</div>
+        <div class="menu-card-desc">Mezcla de frutas y vegetales con aderezo de la casa</div>
+      </div>
+    </div>
+    <div class="menu-card mc4">
+      <div class="menu-card-bg">🍺</div>
+      <div class="menu-card-overlay">
+        <div class="menu-card-name">Cócteles Especiales</div>
+        <div class="menu-card-desc">Creaciones únicas con sabores tropicales y frescos</div>
+      </div>
+    </div>
+    <div class="menu-card mc5">
+      <div class="menu-card-bg">🦞</div>
+      <div class="menu-card-overlay">
+        <div class="menu-card-name">Mariscos al Vapor</div>
+        <div class="menu-card-desc">Selección del día con salsas artesanales</div>
+      </div>
+    </div>
+    <div class="menu-card mc6">
+      <div class="menu-card-bg">🍰</div>
+      <div class="menu-card-overlay">
+        <div class="menu-card-name">Postres Caseros</div>
+        <div class="menu-card-desc">El dulce cierre perfecto para tu visita</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-cta">
+    <a href="tel:79898935" class="btn btn-primary">Llamar para el Menú Completo</a>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experiencia">
+  <div>
+    <span class="section-label">Por qué elegirnos</span>
+    <h2 class="section-title">Una <em>experiencia</em><br>que no olvidarás</h2>
+    <p class="section-text">Más que un restaurante, Copacabana es un escape tropical en el corazón de la ciudad.</p>
+  </div>
+  <div class="exp-features">
+    <div class="exp-feature">
+      <div class="exp-icon">🌴</div>
+      <div>
+        <div class="exp-title">Ambiente Tropical</div>
+        <div class="exp-desc">Decoración y atmósfera que te transportan a la costa, ideal para desconectarse de la rutina.</div>
+      </div>
+    </div>
+    <div class="exp-feature">
+      <div class="exp-icon">🍹</div>
+      <div>
+        <div class="exp-title">Cócteles Artesanales</div>
+        <div class="exp-desc">Bebidas únicas preparadas con ingredientes frescos y recetas propias del lugar.</div>
+      </div>
+    </div>
+    <div class="exp-feature">
+      <div class="exp-icon">🎉</div>
+      <div>
+        <div class="exp-title">Eventos y Celebraciones</div>
+        <div class="exp-desc">El espacio perfecto para reuniones, cumpleaños y celebraciones especiales.</div>
+      </div>
+    </div>
+    <div class="exp-feature">
+      <div class="exp-icon">🛵</div>
+      <div>
+        <div class="exp-title">Delivery por Uber Eats</div>
+        <div class="exp-desc">Disfruta nuestros platos en la comodidad de tu hogar a través de Uber Eats.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO / CONTACT -->
+<section class="info-section" id="contacto">
+  <div class="info-block">
+    <h3>Ubicación</h3>
+    <div class="info-line">
+      <span class="info-icon">📍</span>
+      <span>33 Avenida Norte #1145, Colonia Flor Blanca, San Salvador</span>
+    </div>
+    <div class="info-line">
+      <span class="info-icon">🗺️</span>
+      <a href="https://maps.google.com" class="info-link">Ver en Google Maps</a>
+    </div>
+    <div class="info-line">
+      <span class="info-icon">🚗</span>
+      <span>Estacionamiento disponible en la zona</span>
+    </div>
+  </div>
+
+  <div class="info-block">
+    <h3>Horario</h3>
+    <div class="schedule-row"><span>Lunes</span><span>Cerrado</span></div>
+    <div class="schedule-row"><span>Mar – Vie</span><span>11:00 am – 10:00 pm</span></div>
+    <div class="schedule-row"><span>Sábado</span><span>11:00 am – 11:00 pm</span></div>
+    <div class="schedule-row"><span>Domingo</span><span>11:00 am – 9:00 pm</span></div>
+  </div>
+
+  <div class="info-block">
+    <h3>Contacto</h3>
+    <div class="info-line">
+      <span class="info-icon">📞</span>
+      <a href="tel:79898935" class="info-link">7989-8935</a>
+    </div>
+    <div class="info-line">
+      <span class="info-icon">📱</span>
+      <a href="tel:78429584" class="info-link">7842-9584</a>
+    </div>
+    <div class="info-line">
+      <span class="info-icon">🛵</span>
+      <span>Pedidos: <a href="https://ubereats.com" class="info-link">Uber Eats</a></span>
+    </div>
+    <div class="social-links">
+      <a href="https://instagram.com/copacabanaelsalvador" class="social-btn" target="_blank">📸 Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Copacabana SV</div>
+  <div class="footer-text">© 2025 Copacabana Restaurante · San Salvador, El Salvador</div>
+  <div style="font-size:0.8rem;opacity:0.4;">🌴 Hecho con sabor</div>
+</footer>
+
+</body>
+</html>
